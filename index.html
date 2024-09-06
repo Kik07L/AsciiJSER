@@ -3,27 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GIF to ASCII Art</title>
+    <title>GIF to ASCII Art Animation</title>
     <style>
         body {
-            background-color: #222;
-            color: white;
+            background-color: #111;
+            color: #fff;
             font-family: monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-        .ascii-art {
+        #ascii-art {
             white-space: pre;
-            font-size: 8px; /* Ajuste cette valeur pour changer la taille de l'ASCII */
-            line-height: 8px;
+            line-height: 1;
+            font-size: 12px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <h1>Convertisseur de GIF en ASCII Art</h1>
-    <input type="file" id="gifInput" accept="image/gif">
-    <div id="asciiContainer" class="ascii-art"></div>
+    <div id="ascii-art">Chargement...</div>
+    <input type="file" id="fileInput" accept="image/gif" />
 
-    <script src="app.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/omggif/1.0.10/omggif.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/asciify-image@1.4.0"></script>
+    <script src="asciiArt.js"></script>
 </body>
 </html>
