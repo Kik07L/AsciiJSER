@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIF to ASCII Art</title>
+    <style>
+        body {
+            background-color: #222;
+            color: white;
+            font-family: monospace;
+        }
+        .ascii-art {
+            white-space: pre;
+            font-size: 8px; /* Ajuste cette valeur pour changer la taille de l'ASCII */
+            line-height: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Convertisseur de GIF en ASCII Art</h1>
+    <input type="file" id="gifInput" accept="image/gif">
+    <div id="asciiContainer" class="ascii-art"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
