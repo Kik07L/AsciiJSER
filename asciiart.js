@@ -31,8 +31,8 @@ function handleFile(event) {
             gifDecoder.decodeAndBlitFrameRGBA(i, imageData.data);
             context.putImageData(imageData, 0, 0);
 
-            // Convertir cette frame en ASCII
-            const asciiFrame = convertImageToAscii(imageData);
+            // Convertir cette frame en ASCII avec couleurs
+            const asciiFrame = convertImageToAsciiWithColor(imageData);
             frames.push(asciiFrame);
         }
 
@@ -42,12 +42,15 @@ function handleFile(event) {
     reader.readAsArrayBuffer(file);
 }
 
-function convertImageToAscii(imageData) {
+function convertImageToAsciiWithColor(imageData) {
     const { width, height, data } = imageData;
     let asciiImage = '';
 
-    for (let y = 0; y < height; y += 6) { // Step de lignes pour réduire la résolution de l'ASCII
-        for (let x = 0; x < width; x += 3) { // Step de colonnes pour réduire la résolution de l'ASCII
+    const pixelStepX = 10; // Augmenter le nombre de pixels à sauter horizontalement
+    const pixelStepY = 10; // Augmenter le nombre de pixels à sauter verticalement
+
+    for (let y = 0; y < height; y += pixelStepY) {
+        for (let x = 0; x < width; x += pixelStepX) {
             const index = (y * width + x) * 4;
             const r = data[index];
             const g = data[index + 1];
@@ -56,9 +59,12 @@ function convertImageToAscii(imageData) {
 
             // Calcul de l'index ASCII inversé (pixels sombres -> caractères foncés)
             const asciiIndex = Math.floor((brightness / 255) * (asciiCharacters.length - 1));
-            asciiImage += asciiCharacters[asciiIndex];
+            const asciiChar = asciiCharacters[asciiIndex];
+
+            // Ajouter un <span> avec une couleur RGB correspondant au pixel original
+            asciiImage += `<span style="color: rgb(${r},${g},${b})">${asciiChar}</span>`;
         }
-        asciiImage += "\n";
+        asciiImage += "<br>"; // Utiliser un saut de ligne après chaque ligne d'ASCII
     }
 
     return asciiImage;
@@ -69,7 +75,7 @@ function startAsciiAnimation(frames, gifDecoder) {
 
     function renderFrame() {
         // Afficher la frame ASCII actuelle
-        asciiArtContainer.textContent = frames[currentFrame];
+        asciiArtContainer.innerHTML = frames[currentFrame];  // Utilisation de innerHTML pour gérer les <span> avec couleurs
 
         // Calculer la durée d'affichage de la frame actuelle en ms
         const delay = gifDecoder.frameInfo(currentFrame).delay * 10; // Le delay est en centièmes de seconde

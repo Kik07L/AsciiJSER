@@ -5,17 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GIF to ASCII Art</title>
     <style>
+        body {
+            background-color: black; /* Fond noir pour la page */
+            color: white;             /* Couleur blanche par défaut du texte */
+            font-family: monospace;   /* Police monospace pour l'ASCII */
+        }
+
         #ascii-art {
-            font-family: monospace;
-            white-space: pre;
-            line-height: 0.6;
+            white-space: pre;         /* Pour que les espaces soient préservés */
+            line-height: 0.6;         /* Réduction de l'espacement entre les lignes pour améliorer l'effet ASCII */
+            font-size: 8px;           /* Taille plus petite pour un effet d'ASCII plus compact */
         }
     </style>
 </head>
 <body>
-    <h1>GIF to ASCII Art</h1>
-    <input type="file" id="fileInput">
-    <div id="ascii-art"></div>
+    <h1 style="color: white; text-align: center;">GIF to ASCII Art</h1>
+    <div style="text-align: center;">
+        <input type="file" id="fileInput">
+    </div>
+    <div id="ascii-art" style="text-align: center;"></div>
 
     <!-- Inclusion de omggif.js -->
     <script src="omggif.js"></script>
